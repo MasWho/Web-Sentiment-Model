@@ -1,0 +1,32 @@
+{
+    "raw_path": [
+        "data",
+        "raw",
+        "scraped_data.csv"
+    ],
+    
+    "train_path": [
+        "data",
+        "train",
+        "train_clean.csv"
+    ],
+    
+    "test_path": [
+        "data",
+        "test",
+        "test_clean.csv"
+    ],
+    
+    "model_path": [
+        "models"
+    ],
+    
+    "log_file": [
+        "logs",
+        "test_log.txt"
+    ],
+    
+    "log_path": [
+        "logs"
+    ]
+}
