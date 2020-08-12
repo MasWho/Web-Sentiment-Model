@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+    postgres-db:
+        image: 'postgres'
+        environment: 
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_DB=postgres
+        volumes: 
+            - ~/pgdata:/var/lib/postgresql/data
+        restart: always
+
+    flask-api:
+        build:
+            context: src/app
+            dockerfile: Dockerfile
+        environment: 
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
+            - POSTGRES_PW=password
+            - POSTGRES_URL=postgres-db:5432
+        depends_on: 
+            - postgres-db
+        restart: always
+
+    dash-app:
+        build:
+            context: src/dash
+            dockerfile: Dockerfile
+        ports: 
+            - 8000:8000
+        environment: 
+            - API_URL=http://flask-api:5000
+        depends_on: 
+            - flask-api
+        restart: always

@@ -41,5 +41,5 @@ def create_tables():
                   index=False)
 
 
-# Don't need this when runnign with UWSGI on a remote server!!!
-app.run(port=5000, debug=True)
+# # Don't need this since the docker container will run the flask app using a gunicorn server
+# app.run(port=5000, debug=True)

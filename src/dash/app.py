@@ -9,11 +9,11 @@ resource setups.
 """
 
 # Standard import
-
+import os
 
 # 3rd party import
 import requests
-from flask import request
+from flask import request, Flask
 import dash
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
@@ -35,13 +35,17 @@ external_stylesheets = [
     "https://use.fontawesome.com/releases/v5.0.7/css/all.css",
     'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
 ]
+api_url = os.environ.get('API_URL', 'http://0.0.0.0:5000')
 
 # External JS scripts
 
 
 # Define app
+server = Flask(__name__)  # define flask app.server
+
 app = dash.Dash(
     __name__,
+    server=server,
     external_stylesheets=external_stylesheets,
     meta_tags=[
         {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'}
@@ -50,7 +54,7 @@ app = dash.Dash(
 )
 
 # # Define app layout
-# app.title = 'Reviews AI2Prod'
+app.title = 'Reviews'
 # app.layout = html.Div([
 #     dcc.Location(id='url', refresh=False),
 #     html.Div(id='page-content')
@@ -248,7 +252,7 @@ app.layout = html.Div(
     ]
 )
 def change_brand(submit_click_ts, switch_click_ts, company_id, review, rating, score):
-    host = "http://127.0.0.1:5000"
+    host = api_url
     # If the submit button is clicked, then send current data to database
     # Note the submit button is disabld if review is less than characters
     if submit_click_ts > switch_click_ts:
@@ -270,7 +274,7 @@ def change_brand(submit_click_ts, switch_click_ts, company_id, review, rating, s
             print("Error Saving Review")
     # Randomly generate a company id and query it from database
     company_id_new = randint(0, 10623)
-    host = "http://127.0.0.1:5000"
+    host = api_url
     endpoint_get = "/".join([host, "api", f"companyid-{company_id_new}"])
     response = requests.get(endpoint_get).json()
     if not response['logo_url'].startswith('http'):
@@ -292,7 +296,7 @@ def change_brand(submit_click_ts, switch_click_ts, company_id, review, rating, s
     ]
 )
 def update_proba(review):
-    host = "http://127.0.0.1:5000"
+    host = api_url
     endpoint = "/".join([host, "api", "model"])
     if review and len(review) >= 10:
         payload = {
