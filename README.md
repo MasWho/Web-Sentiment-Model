@@ -8,3 +8,6 @@ A web-based application for predicting product review sentiment.
  - Building front-end app - Implemented a front-end server using Plotly-Dash (A Python Dashboard package).
  - Docker - Implemented multiple docker containers wrapping the entire applciation stack using docker-compose.
  - AWS deployment - Hosted an EC2 instance on AWS, setup docker and deployed prebuild docker images. Acquired a custom domain name with SSL certificate installed. An ABL was setup to serve as a reverse proxy server to route traffic from HTTPS and HTTP to application port.
+
+ 
+<div style='text-align: center'><img src='./app.png'/></div>
