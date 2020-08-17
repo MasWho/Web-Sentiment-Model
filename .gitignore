@@ -1,7 +1,6 @@
 resources/*
 venv/*
 *.ipynb_checkpoints
-*.ipynb
 *.log
 *__pycache__
 .vscode/*
